@@ -54,8 +54,8 @@ export const meta = {
 export default function ${componentName}(){
 
   return (
-    <div className="min-h-screen bg-slate-800 text-slate-700 flex items-center justify-center flex-col">
-      <div className="h-auto w-xl bg-white rounded-xl shadow-sm p-14 mx-auto flex items-center flex-col gap-12">
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 sm:p-6">
+      <div className="h-auto w-full max-w-2xl bg-slate-900 rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 mx-auto border border-slate-800 backdrop-blur-md flex flex-col gap-8">
 
       </div>
     </div>
