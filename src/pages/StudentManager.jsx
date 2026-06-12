@@ -16,6 +16,7 @@ export default function StudentManager(){
   const [daftarSiswa, setDaftarSiswa] = useState([]);
   const [namaSiswa, setNamaSiswa] = useState("");
   const [error, setError] = useState("");
+  const [diEdit, setDiEdit] = useState(null);
 
   const checkValidation = (nama) => {
     const regexHanyaHuruf = /^[a-zA-Z\s]*$/;
@@ -53,16 +54,38 @@ export default function StudentManager(){
     const err = checkValidation(namaSiswa);
     if (err || namaSiswa.trim().length === 0) return;
 
-    const siswaBaru = {
-      id: Date.now(),
-      nama: namaSiswa.trim()
-    };
+    if (diEdit) {
+      // 📝 JIKA SEDANG MODE EDIT
+      const listDiupdate = daftarSiswa.map((siswa) =>
+        siswa.id === diEdit.id ? { ...siswa, nama: namaSiswa.trim() } : siswa
+      );
+      setDaftarSiswa(listDiupdate);
+      setDiEdit(null); // Kembalikan ke mode tambah biasa
+    } else {
+      // ➕ JIKA MODE TAMBAH BIASA
+      const siswaBaru = {
+        id: Date.now(),
+        nama: namaSiswa.trim()
+      };
+      setDaftarSiswa([...daftarSiswa, siswaBaru]);
+    }
 
-    setDaftarSiswa([...daftarSiswa, siswaBaru]);
+
     setNamaSiswa("");
     setError("");
+  };
+
+  const handleHapus = (id) => {
+    const newList = daftarSiswa.filter((siswa) => siswa.id !== id );
+
+    setDaftarSiswa(newList);
   }
 
+  const handleEdit = (siswa) => {
+    setDiEdit(siswa);
+    setNamaSiswa(siswa.nama);
+    setError("");
+  }
   
   return (
 
@@ -99,9 +122,22 @@ export default function StudentManager(){
           </span>
           
           <button disabled={checkValidation(namaSiswa).length > 0 || namaSiswa.trim().length === 0} className="mt-4 w-full py-3 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/10 active:scale-[0.98] transition-all duration-200 text-sm tracking-wide cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
-            Tambah Siswa
+            {diEdit ? "Simpan Perubahan" : "Tambah Siswa"}
           </button>
         </form>
+        {diEdit && (
+          <button
+            type="button"
+            onClick={() => {
+              setDiEdit(null);
+              setNamaSiswa("");
+              setError("");
+            }}
+            className="mt-2 w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-400 font-medium rounded-xl text-xs transition-all duration-200"
+          >
+            Batal Edit
+          </button>
+        )}
       </div>
       
 
@@ -126,10 +162,10 @@ export default function StudentManager(){
               {siswa.nama}
             </h1>
             <div className="flex gap-1.5 items-center h-7">
-              <button className="p-1.5 rounded-md hover:bg-emerald-500/10 opacity-0 translate-x-3 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0" title="Edit">
+              <button onClick={() => handleEdit(siswa)} className="p-1.5 rounded-md hover:bg-emerald-500/10 opacity-0 translate-x-3 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0" title="Edit">
                 <SquarePen color="#10b981" size={18} />
               </button>
-              <button className="p-1.5 rounded-md hover:bg-rose-500/10 opacity-0 translate-x-3 transition-all duration-300 ease-in-out delay-75 group-hover:opacity-100 group-hover:translate-x-0" title="Hapus">
+              <button onClick={() => handleHapus(siswa.id)} className="p-1.5 rounded-md hover:bg-rose-500/10 opacity-0 translate-x-3 transition-all duration-300 ease-in-out delay-75 group-hover:opacity-100 group-hover:translate-x-0" title="Hapus">
                 <Trash2 color="#f43f5e" size={18} />
               </button>
             </div>
@@ -140,7 +176,6 @@ export default function StudentManager(){
             <h2 className="text-xs font-medium text-slate-500">Tidak ada data siswa</h2>
           </div>
         )}
-
 
       </div>
     </div>
