@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Trash2, SquarePen } from "lucide-react";
 
 export const meta = {
@@ -13,10 +13,18 @@ export const meta = {
 
 export default function StudentManager(){
 
-  const [daftarSiswa, setDaftarSiswa] = useState([]);
+  const [daftarSiswa, setDaftarSiswa] = useState(() => {
+    const dataLokal = localStorage.getItem("daftarSiswa");
+    return dataLokal ? JSON.parse(dataLokal) : [];
+  });
+  
   const [namaSiswa, setNamaSiswa] = useState("");
   const [error, setError] = useState("");
   const [diEdit, setDiEdit] = useState(null);
+
+  useEffect(() => {
+    localStorage.setItem("daftarSiswa", JSON.stringify(daftarSiswa));
+  }, [daftarSiswa]);
 
   const checkValidation = (nama) => {
     const regexHanyaHuruf = /^[a-zA-Z\s]*$/;
@@ -55,14 +63,14 @@ export default function StudentManager(){
     if (err || namaSiswa.trim().length === 0) return;
 
     if (diEdit) {
-      // 📝 JIKA SEDANG MODE EDIT
+ 
       const listDiupdate = daftarSiswa.map((siswa) =>
         siswa.id === diEdit.id ? { ...siswa, nama: namaSiswa.trim() } : siswa
       );
       setDaftarSiswa(listDiupdate);
-      setDiEdit(null); // Kembalikan ke mode tambah biasa
+      setDiEdit(null); 
     } else {
-      // ➕ JIKA MODE TAMBAH BIASA
+
       const siswaBaru = {
         id: Date.now(),
         nama: namaSiswa.trim()
