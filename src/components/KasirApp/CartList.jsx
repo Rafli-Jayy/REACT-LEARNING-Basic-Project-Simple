@@ -8,7 +8,7 @@ export function CartList({ keranjang, qtyEdit, hapusProduk }) {
             <h3 className="text-sm font-semibold text-slate-300">
               Belum Ada Pesanan
             </h3>
-            <p className="text-xs text-slate-500 mt-1 max-w-[200px]">
+            <p className="text-xs text-slate-500 mt-1 max-w-50">
               Silakan pilih menu di sebelah kiri untuk menambahkan item.
             </p>
           </div>
