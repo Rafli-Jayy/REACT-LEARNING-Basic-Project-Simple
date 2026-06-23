@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-// Data Kategori - Tetap di sini
 const daftarKategori = {
     pengeluaran: [
     { nama: 'Makanan', emoji: '🍔' },

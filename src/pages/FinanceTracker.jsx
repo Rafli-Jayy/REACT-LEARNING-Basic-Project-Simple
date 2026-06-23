@@ -26,7 +26,6 @@ export default function FinanceTracker() {
     totalPengeluaran,
     totalPemasukan,
     totalSaldo,
-    changeTipe,
     daftarKategori,
     transactionFilter,
     filter,
