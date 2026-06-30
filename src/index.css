@@ -1,2 +1,11 @@
 @import "tailwindcss";
 @variant dark (&:where(.dark, .dark *));
+
+html {
+  scrollbar-gutter: stable;
+  background-color: #f8fafc; /* slate-50, sama kayak bg light mode */
+}
+
+html.dark {
+  background-color: #020617; /* slate-950, sama kayak bg dark mode */
+}

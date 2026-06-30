@@ -1,5 +1,4 @@
 import React from 'react';
-import ThemeToggle from './ThemeToggle';
 
 export default function CardHeader() {
   return (
@@ -12,8 +11,6 @@ export default function CardHeader() {
           Customize your workspace theme.
         </p>
       </div>
-      
-      <ThemeToggle />
     </div>
   );
 }

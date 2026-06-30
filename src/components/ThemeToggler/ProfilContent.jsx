@@ -5,7 +5,7 @@ export default function ProfileContent() {
     <div className="py-6 flex items-center gap-4">
       {/* Avatar Bulat dengan Gradasi */}
       <div className="h-12 w-12 rounded-full font-bold text-sm flex items-center justify-center text-white
-                      bg-gradient-to-tr from-indigo-500 to-purple-500 
+                      bg-linear-to-tr from-indigo-500 to-purple-500 
                       dark:from-indigo-600 dark:to-purple-600">
         DX
       </div>
