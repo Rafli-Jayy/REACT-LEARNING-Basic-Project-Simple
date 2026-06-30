@@ -22,6 +22,15 @@ export default function StudentManager(){
   const [error, setError] = useState("");
   const [diEdit, setDiEdit] = useState(null);
 
+  const hariIni = new Date();
+  const tanggalAngka = hariIni.toLocaleDateString('id-ID');
+  const tanggalTeks = hariIni.toLocaleDateString('id-ID', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
   useEffect(() => {
     localStorage.setItem("daftarSiswa", JSON.stringify(daftarSiswa));
   }, [daftarSiswa]);
@@ -73,7 +82,8 @@ export default function StudentManager(){
 
       const siswaBaru = {
         id: Date.now(),
-        nama: namaSiswa.trim()
+        nama: namaSiswa.trim(),
+        tanggal: tanggalTeks
       };
       setDaftarSiswa([...daftarSiswa, siswaBaru]);
     }
@@ -166,9 +176,14 @@ export default function StudentManager(){
 
         {daftarSiswa.map((siswa, idx) => (
           <div key={idx} className="group text-sm font-medium tracking-wide text-slate-300 bg-slate-700/30 hover:bg-slate-700/60 hover:text-white px-5 py-3 rounded-lg flex justify-between items-center transition-all duration-300 ease-in-out cursor-pointer border border-transparent hover:border-slate-600/40 shadow-sm hover:shadow-md">
-            <h1 className="truncate pr-4 font-normal transition-colors duration-300 group-hover:text-white">
-              {siswa.nama}
-            </h1>
+            <div>
+              <h1 className="truncate pr-4 font-normal transition-colors duration-300 group-hover:text-white">
+                {siswa.nama}
+              </h1>
+              <p className="truncate pr-4 text-[10px] text-slate-500">
+                {siswa.tanggal}
+              </p>
+            </div>
             <div className="flex gap-1.5 items-center h-7">
               <button onClick={() => handleEdit(siswa)} className="p-1.5 rounded-md hover:bg-emerald-500/10 opacity-0 translate-x-3 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0" title="Edit">
                 <SquarePen color="#10b981" size={18} />

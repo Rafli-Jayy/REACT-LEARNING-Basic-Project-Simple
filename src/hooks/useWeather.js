@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-export function useWeather(initialCity = "Banyuwangi") {
-  const [city, setCity] = useState(initialCity);
+export function useWeather() {
+  const [city, setCity] = useState("Banyuwangi");
   const [inputCity, setInputCity] = useState("");
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(false);
